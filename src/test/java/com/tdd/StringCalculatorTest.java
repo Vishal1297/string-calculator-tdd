@@ -12,12 +12,12 @@ public class StringCalculatorTest {
     StringCalculator stringCalculator;
 
     @BeforeEach
-    public void init(){
+    public void init() {
         stringCalculator = new StringCalculator();
     }
 
     @AfterEach
-    public void destroy(){
+    public void destroy() {
         stringCalculator = null;
     }
 
@@ -40,8 +40,36 @@ public class StringCalculatorTest {
     }
 
     @Test
-    public void testNewLine(){
+    @DisplayName("Test New Line")
+    public void testNewLine() {
         assertEquals(10, stringCalculator.add("1\n2,3\n4"));
+    }
+
+    @Test
+    @DisplayName("Test Negative Number")
+    public void testNegativeNumber() {
+        try {
+            stringCalculator.add("-1,2");
+        } catch (IllegalArgumentException e) {
+            assertEquals(e.getMessage(), "Negatives not allowed: -1");
+        }
+        try {
+            stringCalculator.add("1,-2,3,-5");
+        } catch (IllegalArgumentException e) {
+            assertEquals(e.getMessage(), "Negatives not allowed: -2,-5");
+        }
+    }
+
+    @Test
+    @DisplayName("Test Over Thousand")
+    public void testOverThousand() {
+        assertEquals(10, stringCalculator.add("1000,10"));
+    }
+
+    @Test
+    @DisplayName("Test Other Delimiter")
+    public void testOtherDelimiter() {
+        assertEquals(3, stringCalculator.add("//;\n1;2"));
     }
 
 }
