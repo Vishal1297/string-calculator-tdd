@@ -18,6 +18,7 @@ public class StringCalculatorTest {
     public void testAddMultipleNumbers() {
         StringCalculator simpleCalculator = new StringCalculator();
         assertEquals(3, simpleCalculator.add("1,2"));
+        assertEquals(25, simpleCalculator.add("13,12"));
     }
 
 }
