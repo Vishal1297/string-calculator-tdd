@@ -12,14 +12,23 @@ public class StringCalculator {
             } else {
                 return convertToInt(numbers);
             }
-        }else {
-            return Arrays.stream(numbers.split(","))
-                    .mapToInt(Integer::valueOf)
-                    .sum();
+        } else {
+            String delimiter = ",";
+            return sum(splitNumbers(numbers, delimiter + "|\n"));
         }
     }
 
-    public int convertToInt(String num){
+    private String[] splitNumbers(String numbers, String divider) {
+        return numbers.split(divider);
+    }
+
+    private int convertToInt(String num) {
         return Integer.parseInt(num);
+    }
+
+    private int sum(String[] numbers) {
+        return Arrays.stream(numbers)
+                .mapToInt(this::convertToInt)
+                .sum();
     }
 }
